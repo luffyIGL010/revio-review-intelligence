@@ -22,7 +22,12 @@ TIMEOUT = 60
 # ---------------------------------------------------------------------------
 # Page setup
 # ---------------------------------------------------------------------------
-st.set_page_config(page_title="Revio AI — Review Intelligence", page_icon="🔍", layout="wide")
+st.set_page_config(
+    page_title="Revio AI — Review Intelligence",
+    page_icon="🔍",
+    layout="wide",
+    initial_sidebar_state="collapsed",
+)
 
 st.title("🔍 Revio AI — Review Intelligence Copilot")
 st.markdown(
@@ -93,19 +98,6 @@ def urgency_color(u: str) -> str:
     return {"Low": "🟢", "Medium": "🟠", "High": "🔴"}.get(u, "⚪")
 
 
-# ---------------------------------------------------------------------------
-# Sidebar — backend health
-# ---------------------------------------------------------------------------
-with st.sidebar:
-    st.header("⚙️ Status")
-    data, err = backend_get("/health")
-    if err:
-        st.error(f"Backend offline\n\n{err}")
-    else:
-        st.success("Backend online ✅")
-    st.divider()
-    st.caption(f"Backend: `{API_BASE_URL}`")
-    st.caption("**Note:** All LLM calls run on the backend. Your API key is never sent to this UI.")
 
 # ---------------------------------------------------------------------------
 # Tab layout
